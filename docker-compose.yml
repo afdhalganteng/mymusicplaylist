@@ -3,7 +3,7 @@ services:
   app:
       container_name: docker-myplaylist
       image: afdhalulhsn/myplaylist:latest
-      build: ./
+      # build: ./
       ports: 
         - "8080:8080"
       depends_on:
