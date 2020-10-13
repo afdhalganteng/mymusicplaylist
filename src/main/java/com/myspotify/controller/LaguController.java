@@ -47,6 +47,8 @@ public class LaguController {
 		}
 	}
 	
+	
+	
 	@RequestMapping(method = RequestMethod.GET,params = {"title"},path = "search")
 	public ResponseEntity<?> getLaguByTitle(String title){
 		try {
@@ -61,6 +63,17 @@ public class LaguController {
 	public ResponseEntity<?> getById(@PathVariable String id){
 		try {
 			return new ResponseEntity<>(laguService.getById(id), HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	
+	@GetMapping()
+	public ResponseEntity<?> getLaguAll(){
+		try {
+			return new ResponseEntity<>(laguService.getAll(), HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);

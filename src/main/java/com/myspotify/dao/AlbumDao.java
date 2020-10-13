@@ -2,6 +2,7 @@ package com.myspotify.dao;
 
 import java.util.List;
 
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
@@ -66,6 +67,32 @@ public class AlbumDao extends BaseDao implements BaseMasterDao {
 				"where lower(ar.name) like :name")
 							.setParameter("name", "%"+name.toLowerCase()+"%")
 							.getResultList();
+		return data;
+	}
+	@SuppressWarnings("unchecked")
+	public List<Object[]> getAlbumByArtistandName(String album,String artist){
+		StringBuilder sb = new StringBuilder();
+		sb.append("select ar.name,ta.album,ta.release_date,ta.id");
+		sb.append(" from tb_album ta join tb_artist ar on ar.id = ta.artist_id");
+		sb.append(" where 1=1");
+		
+		if(album != null) {
+			sb.append(" and lower(ta.album) like :alb");
+		}
+		if(artist != null) {
+			sb.append(" and lower(ar.name) like :artist");
+
+		}
+		Query query = em.createNativeQuery(sb.toString());
+		if(album != null) {
+			query.setParameter("alb", "%"+album.toLowerCase()+"%");
+		}
+		if(artist != null) {
+			query.setParameter("artist", "%"+artist.toLowerCase()+"%");
+
+		}
+		
+		List<Object[]> data = query.getResultList();
 		return data;
 	}
 	

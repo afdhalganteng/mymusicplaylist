@@ -103,6 +103,16 @@ public class AlbumController {
 		}
 	}
 	
+	@RequestMapping(method = RequestMethod.GET,params = {"artist","album"},path = "search")
+	public ResponseEntity<?> getByAlbumbyArtistName(String artist,String album){
+		try {
+			return new ResponseEntity<>(albumService.getAlbumByArtistNameandAlbum(album, artist), HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
+	
 	
 	
 

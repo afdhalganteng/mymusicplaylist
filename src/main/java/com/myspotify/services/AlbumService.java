@@ -107,6 +107,18 @@ public class AlbumService {
 		}
 		return rtData;
 	}
+	public List<PojoAlbum> getAlbumByArtistNameandAlbum(String album,String name){
+		List<PojoAlbum> rtData = new ArrayList<PojoAlbum>();
+		for(Object[] o:albumDao.getAlbumByArtistandName(album, name)) {
+			PojoAlbum pj = new PojoAlbum();
+			pj.setAlbum((String)o[1]);
+			pj.setArtist((String)o[0]);
+			pj.setReleaseDate((Date)o[2]);
+			pj.setId((String)o[3]);
+			rtData.add(pj);
+		}
+		return rtData;
+	}
 	
 	public List<Album> getAll(){
 		return albumDao.getAlbumAll();
